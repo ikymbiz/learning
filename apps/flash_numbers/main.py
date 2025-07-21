@@ -1,4 +1,12 @@
 import streamlit as st
+import sys
+import os
+
+# 現在のスクリプトのディレクトリをsys.pathに追加
+current_dir = os.path.dirname(os.path.abspath(__file__))
+if current_dir not in sys.path:
+    sys.path.append(current_dir)
+
 from gui import (
     init_session_state,
     setup_page,

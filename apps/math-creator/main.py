@@ -2,7 +2,15 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 import random
+import sys
+import os
 from typing import List, Tuple, Dict, Any
+
+# 現在のスクリプトのディレクトリをsys.pathに追加
+current_dir = os.path.dirname(os.path.abspath(__file__))
+if current_dir not in sys.path:
+    sys.path.append(current_dir)
+
 from output_formatter import OutputFormatter
 
 # ページ設定
@@ -477,7 +485,11 @@ def main():
         # st.markdown("---")
         
         # 詳細設定を表示
-        from detailed_settings import show_detailed_settings
+        try:
+            from detailed_settings import show_detailed_settings
+        except ImportError:
+            st.error("詳細設定モジュールが見つかりません")
+            return
         show_detailed_settings(generator)
         
         # 操作ボタン
@@ -501,7 +513,11 @@ def main():
         # st.markdown("---")
         
         # 表示設定を表示
-        from display_settings import show_display_settings
+        try:
+            from display_settings import show_display_settings
+        except ImportError:
+            st.error("表示設定モジュールが見つかりません")
+            return
         show_display_settings(generator)
         
         # 操作ボタン
@@ -521,7 +537,11 @@ def main():
     # 使い方ページの表示制御
     elif st.session_state.get('show_usage_guide', False):
         # 使い方ページを表示
-        from usage_guide import show_usage_guide
+        try:
+            from usage_guide import show_usage_guide
+        except ImportError:
+            st.error("使い方ガイドモジュールが見つかりません")
+            return
         show_usage_guide()
         
         # 操作ボタン
